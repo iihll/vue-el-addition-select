@@ -1,8 +1,8 @@
 {
   "name": "vue-el-addition-select",
   "version": "1.0.0",
-  "description": "A additon select component of Element UI",
-  "main": "src/index.js",
+  "description": "A addition select component of Element UI",
+  "main": "lib/index.js",
   "author": "iihll",
   "license": "MIT",
   "keywords": [
@@ -12,6 +12,9 @@
     "select",
     "addition"
   ],
+  "repository": {
+    "url": "https://github.com/iihll/vue-el-addition-select.git"
+  },
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack build"

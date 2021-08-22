@@ -1,17 +1,12 @@
-import ELAdditionSelect from './ELAdditionSelect.vue'
+import App from './App.vue'
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import ElAdditionSelect from '../lib/index'
 
 Vue.use(ElementUI, { size: 'mini' })
+Vue.use(ElAdditionSelect)
 
-// export { ELAdditionSelect }
-
-// export default {
-//   install(Vue) {
-//     Vue.component('el-addition-select', ELAdditionSelect)
-//   }
-// }
 new Vue({
-  render: h => h(ELAdditionSelect)
+  render: h => h(App)
 }).$mount('#app')

@@ -1,25 +1,34 @@
 <template>
   <div class="--addition-select">
-    <el-button icon="el-icon-plus" @click="handleAddItem"></el-button>
+    <el-button
+      class="--addition-select-plus-btn"
+      icon="el-icon-plus"
+      @click="handleAddItem"
+      circle
+    ></el-button>
     <div>
-      <div v-for="(item, index) in valueList" :key="index">
-        <el-select v-model="item.field">
+      <div
+        v-for="(item, index) in valueList"
+        :key="'--addition-select-item' + index"
+        class="--addition-select-item"
+      >
+        <el-select v-model="item.leftValue">
           <el-option
-            v-for="item in fieldOption"
+            v-for="item in leftOption"
             :key="item.key"
             :value="item.value"
             :label="item.label"
           ></el-option>
         </el-select>
-        <el-select class="--addition-select-left-item" v-model="item.condition">
+        <el-select class="--addition-select-item-left" v-model="item.rightValue">
           <el-option
-            v-for="item in conditionOption"
+            v-for="item in rightOption"
             :key="item.key"
             :value="item.value"
             :label="item.label"
           ></el-option>
         </el-select>
-        <span>（选择条件）</span>
+        <el-button icon="el-icon-delete" circle @click="handleDelItem(index)"></el-button>
       </div>
     </div>
   </div>
@@ -27,50 +36,48 @@
 
 <script>
 export default {
-  data() {
-    return {
-      valueList: [
+  name: 'ElAdditionSelect',
+  props: {
+    value: {
+      type: Array,
+      default: () => [
         {
-          field: '',
-          condition: ''
-        },
-        {
-          field: '',
-          condition: ''
-        }
-      ],
-      fieldOption: [
-        {
-          key: 'field_1',
-          value: 'field_1',
-          label: '字段1'
-        },
-        {
-          key: 'field_2',
-          value: 'field_2',
-          label: '字段2'
-        }
-      ],
-      conditionOption: [
-        {
-          key: 'or',
-          value: 'or',
-          label: '或者'
-        },
-        {
-          key: 'and',
-          value: 'and',
-          label: '并且'
+          leftValue: '',
+          rightValue: ''
         }
       ]
+    },
+    leftOption: {
+      type: Array,
+      default: () => []
+    },
+    rightOption: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    valueList: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      }
     }
   },
   methods: {
     handleAddItem() {
       this.valueList.push({
-        field: '',
-        condition: ''
+        leftValue: '',
+        rightValue: ''
       })
+    },
+    handleDelItem(index) {
+      this.valueList.splice(index, 1)
     }
   }
 }
@@ -82,7 +89,15 @@ export default {
   align-items: flex-start;
 }
 
-.--addition-select-left-item {
-  width: 84px;
+.--addition-select-plus-btn {
+  margin-right: 10px;
+}
+
+.--addition-select-item {
+  margin-bottom: 10px;
+}
+
+.--addition-select-item-left {
+  width: 86px;
 }
 </style>
